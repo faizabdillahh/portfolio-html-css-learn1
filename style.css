@@ -1,0 +1,942 @@
+/* ============================================================
+   STYLE.CSS — Portfolio M Faiz Abdillah
+   Clean & Minimalis | Mobile-First
+   ============================================================
+
+   PRINSIP MOBILE-FIRST:
+   → CSS default ditulis untuk layar HP (< 640px)
+   → Pakai @media (min-width: ...) untuk layar yang LEBIH BESAR
+   → Urutan breakpoint: HP → Tablet (640px) → Laptop (1024px)
+
+   DAFTAR ISI:
+   1.  Reset & Base
+   2.  Variabel Warna
+   3.  Container
+   4.  Tipografi Section Global
+   5.  Tombol
+   6.  Header & Navbar
+   7.  Hero Section
+   8.  About Section
+   9.  Skills Section
+   10. Projects Section
+   11. Contact Section
+   12. Footer
+   ============================================================ */
+
+
+/* ============================================================
+   1. RESET & BASE
+   ============================================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #374151;
+    background-color: #ffffff;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+
+/* ============================================================
+   2. VARIABEL WARNA
+   ============================================================ */
+
+:root {
+    --biru:        #2563eb;
+    --biru-gelap:  #1d4ed8;
+    --biru-muda:   #dbeafe;
+    --hitam:       #0a0a0a;
+    --abu-teks:    #374151;
+    --abu-muted:   #6b7280;
+    --abu-border:  #e5e7eb;
+    --bg-putih:    #ffffff;
+    --bg-abu:      #f9fafb;
+}
+
+
+/* ============================================================
+   3. CONTAINER
+   ============================================================ */
+
+/*
+   Mobile: padding kiri-kanan 16px — lebih sempit karena layar HP kecil
+   Tablet+: padding naik jadi 24px
+   Laptop+: max-width aktif, konten tidak melebar lebih dari 1100px
+*/
+.container {
+    width: 100%;            /* ambil seluruh lebar layar di HP */
+    margin: 0 auto;
+    padding: 0 16px;        /* [MOBILE] jarak kiri-kanan 16px */
+}
+
+@media (min-width: 640px) {
+    .container {
+        padding: 0 24px;    /* [TABLET] jarak kiri-kanan naik jadi 24px */
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1100px;  /* [LAPTOP] batasi lebar maksimal konten */
+    }
+}
+
+
+/* ============================================================
+   4. TIPOGRAFI SECTION GLOBAL
+   ============================================================ */
+
+/*
+   Mobile: judul section 24px — cukup untuk layar kecil
+   Laptop+: naik jadi 32px karena layar lebih luas
+*/
+section > .container > header h2 {
+    font-size: 24px;        /* [MOBILE] */
+    font-weight: 700;
+    color: var(--hitam);
+    margin-bottom: 8px;
+}
+
+@media (min-width: 1024px) {
+    section > .container > header h2 {
+        font-size: 32px;    /* [LAPTOP] judul section lebih besar */
+    }
+}
+
+section > .container > header p {
+    font-size: 15px;        /* [MOBILE] */
+    color: var(--abu-muted);
+    margin-bottom: 32px;    /* [MOBILE] jarak ke konten lebih kecil */
+}
+
+@media (min-width: 1024px) {
+    section > .container > header p {
+        font-size: 16px;
+        margin-bottom: 48px; /* [LAPTOP] jarak lebih longgar */
+    }
+}
+
+
+/* ============================================================
+   5. TOMBOL
+   ============================================================ */
+
+/*
+   Tombol di mobile: lebar penuh agar mudah di-tap jari
+   Tablet+: kembali ke lebar otomatis (sesuai isi teks)
+*/
+#hero .container > div a,
+#projects article > div > div a {
+    display: block;             /* [MOBILE] lebar penuh */
+    width: 100%;
+    text-align: center;
+    padding: 13px 28px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.2s ease;
+}
+
+@media (min-width: 640px) {
+    #hero .container > div a,
+    #projects article > div > div a {
+        display: inline-block;  /* [TABLET] lebar sesuai isi */
+        width: auto;
+    }
+}
+
+/* Tombol pertama — solid biru */
+#hero .container > div a:first-child,
+#projects article > div > div a:first-child {
+    background-color: var(--biru);
+    color: #ffffff;
+    border: 2px solid var(--biru);
+}
+
+/* Tombol kedua — outline */
+#hero .container > div a:last-child {
+    background-color: transparent;
+    color: var(--biru);
+    border: 2px solid var(--biru);
+}
+
+/* Hover hanya relevan di laptop (layar yang ada mouse-nya) */
+@media (hover: hover) {
+    /*
+       @media (hover: hover) artinya: hanya berlaku di perangkat
+       yang punya kemampuan hover (mouse/trackpad — bukan layar sentuh).
+       Ini mencegah "stuck hover" di HP setelah di-tap.
+    */
+    #hero .container > div a:first-child:hover,
+    #projects article > div > div a:first-child:hover {
+        background-color: var(--biru-gelap);
+        border-color: var(--biru-gelap);
+        transform: translateY(-2px);
+    }
+
+    #hero .container > div a:last-child:hover {
+        background-color: var(--biru);
+        color: #ffffff;
+        transform: translateY(-2px);
+    }
+}
+
+
+/* ============================================================
+   6. HEADER & NAVBAR
+   ============================================================ */
+
+body > header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--bg-putih);
+    border-bottom: 1px solid var(--abu-border);
+}
+
+/*
+   Mobile: nav pakai flexbox, logo kiri, menu kanan
+   Tinggi navbar lebih kecil di mobile (56px) vs laptop (64px)
+*/
+body > header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 56px;           /* [MOBILE] navbar lebih tipis */
+}
+
+@media (min-width: 1024px) {
+    body > header nav {
+        height: 64px;       /* [LAPTOP] navbar lebih tinggi */
+    }
+}
+
+/* Logo */
+body > header nav > span {
+    font-size: 18px;        /* [MOBILE] logo sedikit lebih kecil */
+    font-weight: 700;
+    color: var(--hitam);
+}
+
+@media (min-width: 640px) {
+    body > header nav > span {
+        font-size: 20px;    /* [TABLET+] logo ukuran normal */
+    }
+}
+
+body > header nav > span strong {
+    color: var(--biru);
+    font-weight: 700;
+}
+
+/*
+   Mobile: menu disembunyikan — layar HP terlalu sempit
+   Tablet+: menu ditampilkan kembali secara horizontal
+*/
+body > header nav ul {
+    display: none;          /* [MOBILE] sembunyikan menu */
+}
+
+@media (min-width: 640px) {
+    body > header nav ul {
+        display: flex;      /* [TABLET+] tampilkan menu horizontal */
+        align-items: center;
+        gap: 24px;          /* [TABLET] jarak antar menu lebih rapat */
+    }
+}
+
+@media (min-width: 1024px) {
+    body > header nav ul {
+        gap: 32px;          /* [LAPTOP] jarak antar menu lebih longgar */
+    }
+}
+
+body > header nav ul a {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--abu-teks);
+    transition: color 0.2s;
+}
+
+@media (hover: hover) {
+    body > header nav ul a:hover {
+        color: var(--biru);
+    }
+}
+
+
+/* ============================================================
+   7. HERO SECTION
+   ============================================================ */
+
+#hero {
+    /*
+       Mobile: min-height dikurangi tinggi navbar mobile (56px)
+       Laptop: dikurangi tinggi navbar laptop (64px)
+    */
+    min-height: calc(100vh - 56px); /* [MOBILE] */
+    display: flex;
+    align-items: center;
+    padding: 48px 0;            /* [MOBILE] padding atas-bawah */
+    background-color: var(--bg-putih);
+}
+
+@media (min-width: 1024px) {
+    #hero {
+        min-height: calc(100vh - 64px); /* [LAPTOP] */
+        padding: 0;
+    }
+}
+
+/* "Halo, Saya 👋" */
+#hero .container > p:first-child {
+    font-size: 16px;            /* [MOBILE] */
+    color: var(--abu-muted);
+    margin-bottom: 8px;
+}
+
+@media (min-width: 640px) {
+    #hero .container > p:first-child {
+        font-size: 18px;        /* [TABLET+] */
+    }
+}
+
+/* Nama besar — clamp() tetap responsif tanpa media query tambahan */
+#hero h1 {
+    font-size: clamp(36px, 8vw, 72px);
+    /*
+       clamp(36px, 8vw, 72px):
+       - min: 36px di HP kecil
+       - ideal: 8% dari lebar viewport (otomatis naik seiring layar membesar)
+       - max: 72px di monitor besar
+       Ini cara responsif tanpa @media sama sekali!
+    */
+    font-weight: 700;
+    color: var(--hitam);
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 10px;
+}
+
+/* Tagline */
+#hero h2 {
+    font-size: clamp(16px, 3vw, 26px); /* sama — clamp() sudah responsif */
+    font-weight: 500;
+    color: var(--biru);
+    margin-bottom: 14px;
+}
+
+/* Deskripsi */
+#hero .container > p:last-of-type {
+    font-size: 16px;            /* [MOBILE] */
+    color: var(--abu-muted);
+    margin-bottom: 28px;        /* [MOBILE] jarak ke tombol lebih kecil */
+    line-height: 1.7;
+}
+
+@media (min-width: 640px) {
+    #hero .container > p:last-of-type {
+        font-size: 17px;
+        max-width: 520px;       /* [TABLET+] batasi lebar teks */
+        margin-bottom: 36px;
+    }
+}
+
+/* Wrapper tombol CTA */
+#hero .container > div {
+    display: flex;
+    flex-direction: column;     /* [MOBILE] tombol tumpuk vertikal */
+    gap: 12px;
+}
+
+@media (min-width: 640px) {
+    #hero .container > div {
+        flex-direction: row;    /* [TABLET+] tombol berjajar horizontal */
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+}
+
+
+/* ============================================================
+   8. ABOUT SECTION
+   ============================================================ */
+
+#about {
+    padding: 64px 0;            /* [MOBILE] padding lebih kecil */
+    background-color: var(--bg-abu);
+}
+
+@media (min-width: 1024px) {
+    #about {
+        padding: 96px 0;        /* [LAPTOP] padding lebih longgar */
+    }
+}
+
+/*
+   Mobile: foto dan teks tumpuk vertikal (1 kolom)
+   Laptop: foto kiri, teks kanan (2 kolom)
+*/
+#about .container > div {
+    display: flex;
+    flex-direction: column;     /* [MOBILE] tumpuk vertikal */
+    align-items: center;        /* [MOBILE] foto di tengah */
+    gap: 32px;
+    text-align: center;         /* [MOBILE] teks rata tengah */
+}
+
+@media (min-width: 1024px) {
+    #about .container > div {
+        display: grid;
+        grid-template-columns: 260px 1fr; /* [LAPTOP] 2 kolom */
+        gap: 64px;
+        align-items: start;
+        text-align: left;       /* [LAPTOP] teks rata kiri */
+    }
+}
+
+#about figure {
+    margin: 0;
+}
+
+#about figure img {
+    width: 160px;               /* [MOBILE] foto lebih kecil */
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--abu-border);
+    margin: 0 auto;             /* [MOBILE] foto di tengah */
+}
+
+@media (min-width: 1024px) {
+    #about figure img {
+        width: 220px;           /* [LAPTOP] foto lebih besar */
+        height: 220px;
+        margin: 0;              /* [LAPTOP] tidak perlu center manual */
+    }
+}
+
+#about figcaption {
+    text-align: center;
+    margin-top: 12px;
+    font-weight: 600;
+    color: var(--abu-teks);
+    font-size: 14px;
+}
+
+#about article h3 {
+    font-size: 20px;            /* [MOBILE] */
+    font-weight: 700;
+    color: var(--hitam);
+    margin-bottom: 14px;
+}
+
+@media (min-width: 1024px) {
+    #about article h3 {
+        font-size: 24px;        /* [LAPTOP] */
+    }
+}
+
+#about article p {
+    color: var(--abu-muted);
+    margin-bottom: 12px;
+    line-height: 1.8;
+}
+
+#about article ul {
+    margin: 16px 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#about article ul li {
+    font-size: 14px;            /* [MOBILE] */
+    color: var(--abu-teks);
+}
+
+@media (min-width: 640px) {
+    #about article ul li {
+        font-size: 15px;        /* [TABLET+] */
+    }
+}
+
+/* Tombol Download CV di about */
+#about article a {
+    display: inline-block;
+    padding: 11px 26px;
+    background-color: var(--biru);
+    color: #ffffff;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.2s ease;
+}
+
+@media (hover: hover) {
+    #about article a:hover {
+        background-color: var(--biru-gelap);
+        transform: translateY(-2px);
+    }
+}
+
+
+/* ============================================================
+   9. SKILLS SECTION
+   ============================================================ */
+
+#skills {
+    padding: 64px 0;            /* [MOBILE] */
+    background-color: var(--bg-putih);
+}
+
+@media (min-width: 1024px) {
+    #skills {
+        padding: 96px 0;        /* [LAPTOP] */
+    }
+}
+
+/*
+   Mobile: dua card skills tumpuk vertikal (1 kolom)
+   Tablet+: dua card berdampingan (2 kolom)
+*/
+#skills .container > div {
+    display: grid;
+    grid-template-columns: 1fr; /* [MOBILE] 1 kolom */
+    gap: 20px;
+}
+
+@media (min-width: 640px) {
+    #skills .container > div {
+        grid-template-columns: 1fr 1fr; /* [TABLET+] 2 kolom */
+        gap: 40px;
+    }
+}
+
+#skills article {
+    background-color: var(--bg-abu);
+    border: 1px solid var(--abu-border);
+    border-radius: 12px;
+    padding: 24px;              /* [MOBILE] padding card lebih kecil */
+}
+
+@media (min-width: 1024px) {
+    #skills article {
+        padding: 28px;          /* [LAPTOP] padding card lebih longgar */
+    }
+}
+
+#skills article h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--hitam);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--abu-border);
+}
+
+#skills article ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#skills article ul li {
+    padding: 10px 14px;
+    background-color: var(--bg-putih);
+    border-radius: 6px;
+    border-left: 3px solid var(--biru);
+    font-size: 14px;            /* [MOBILE] */
+    font-weight: 500;
+    color: var(--abu-teks);
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+@media (min-width: 640px) {
+    #skills article ul li {
+        font-size: 15px;        /* [TABLET+] */
+    }
+}
+
+@media (hover: hover) {
+    #skills article ul li:hover {
+        border-left-color: var(--biru-gelap);
+        transform: translateX(4px);
+    }
+}
+
+
+/* ============================================================
+   10. PROJECTS SECTION
+   ============================================================ */
+
+#projects {
+    padding: 64px 0;            /* [MOBILE] */
+    background-color: var(--bg-abu);
+}
+
+@media (min-width: 1024px) {
+    #projects {
+        padding: 96px 0;        /* [LAPTOP] */
+    }
+}
+
+/*
+   auto-fill + minmax sudah responsif sendiri:
+   - Mobile (< 640px): 1 kolom karena minmax min 300px
+   - Tablet: 2 kolom jika layar cukup
+   - Laptop: 3 kolom atau lebih
+*/
+#projects .container > div {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;                  /* [MOBILE] gap lebih kecil */
+}
+
+@media (min-width: 1024px) {
+    #projects .container > div {
+        gap: 28px;              /* [LAPTOP] gap lebih longgar */
+    }
+}
+
+#projects article {
+    background-color: var(--bg-putih);
+    border: 1px solid var(--abu-border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+@media (hover: hover) {
+    #projects article:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.09);
+    }
+}
+
+#projects article figure {
+    margin: 0;
+}
+
+#projects article figure img {
+    width: 100%;
+    height: 180px;              /* [MOBILE] tinggi gambar lebih kecil */
+    object-fit: cover;
+}
+
+@media (min-width: 640px) {
+    #projects article figure img {
+        height: 200px;          /* [TABLET+] tinggi gambar normal */
+    }
+}
+
+#projects article > div {
+    padding: 16px;              /* [MOBILE] padding card lebih kecil */
+}
+
+@media (min-width: 640px) {
+    #projects article > div {
+        padding: 20px;          /* [TABLET+] padding lebih longgar */
+    }
+}
+
+#projects article > div > ul {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+#projects article > div > ul li {
+    padding: 3px 10px;
+    background-color: var(--biru-muda);
+    color: var(--biru-gelap);
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+#projects article h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--hitam);
+    margin-bottom: 8px;
+}
+
+#projects article > div > p {
+    font-size: 14px;
+    color: var(--abu-muted);
+    line-height: 1.7;
+    margin-bottom: 16px;
+}
+
+#projects article > div > div {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+
+/* ============================================================
+   11. CONTACT SECTION
+   ============================================================ */
+
+#contact {
+    padding: 64px 0;            /* [MOBILE] */
+    background-color: var(--bg-putih);
+}
+
+@media (min-width: 1024px) {
+    #contact {
+        padding: 96px 0;        /* [LAPTOP] */
+    }
+}
+
+/*
+   Mobile: address dan form tumpuk vertikal
+   Laptop: address kiri, form kanan (2 kolom)
+*/
+#contact .container > div {
+    display: flex;
+    flex-direction: column;     /* [MOBILE] tumpuk vertikal */
+    gap: 40px;
+}
+
+@media (min-width: 1024px) {
+    #contact .container > div {
+        display: grid;
+        grid-template-columns: 1fr 1.4fr; /* [LAPTOP] 2 kolom */
+        gap: 64px;
+        align-items: start;
+    }
+}
+
+#contact address {
+    font-style: normal;
+}
+
+#contact address h3 {
+    font-size: 18px;            /* [MOBILE] */
+    font-weight: 700;
+    color: var(--hitam);
+    margin-bottom: 20px;
+}
+
+@media (min-width: 1024px) {
+    #contact address h3 {
+        font-size: 20px;        /* [LAPTOP] */
+        margin-bottom: 24px;
+    }
+}
+
+#contact address ul {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+#contact address ul li {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+#contact address ul li strong {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--abu-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#contact address ul li a {
+    font-size: 14px;            /* [MOBILE] */
+    color: var(--biru);
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+@media (min-width: 640px) {
+    #contact address ul li a {
+        font-size: 15px;        /* [TABLET+] */
+    }
+}
+
+@media (hover: hover) {
+    #contact address ul li a:hover {
+        color: var(--biru-gelap);
+    }
+}
+
+#contact form > div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+#contact form label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--abu-teks);
+}
+
+#contact form input,
+#contact form textarea {
+    padding: 12px 14px;
+    border: 1.5px solid var(--abu-border);
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    /*
+       font-size minimal 16px di input/textarea mencegah
+       auto-zoom di iPhone saat field difokus!
+    */
+    color: var(--abu-teks);
+    background-color: var(--bg-putih);
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;                /* [MOBILE] pastikan input full lebar */
+}
+
+#contact form input:focus,
+#contact form textarea:focus {
+    border-color: var(--biru);
+}
+
+#contact form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+#contact form button {
+    width: 100%;                /* [MOBILE] tombol full lebar, mudah di-tap */
+    padding: 14px 32px;         /* [MOBILE] padding atas-bawah lebih tinggi */
+    background-color: var(--biru);
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+@media (min-width: 640px) {
+    #contact form button {
+        width: auto;            /* [TABLET+] lebar tombol sesuai teks */
+        font-size: 15px;
+    }
+}
+
+@media (hover: hover) {
+    #contact form button:hover {
+        background-color: var(--biru-gelap);
+        transform: translateY(-2px);
+    }
+}
+
+
+/* ============================================================
+   12. FOOTER
+   ============================================================ */
+
+footer {
+    padding: 32px 0;            /* [MOBILE] padding footer lebih kecil */
+    background-color: var(--hitam);
+    color: var(--abu-muted);
+}
+
+@media (min-width: 640px) {
+    footer {
+        padding: 40px 0;        /* [TABLET+] padding lebih longgar */
+    }
+}
+
+/*
+   Mobile: tiga bagian footer tumpuk vertikal, rata tengah
+   Tablet+: berjajar horizontal
+*/
+footer .container {
+    display: flex;
+    flex-direction: column;     /* [MOBILE] tumpuk vertikal */
+    align-items: center;        /* [MOBILE] rata tengah */
+    text-align: center;
+    gap: 20px;
+}
+
+@media (min-width: 640px) {
+    footer .container {
+        flex-direction: row;    /* [TABLET+] berjajar horizontal */
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+    }
+}
+
+footer div strong {
+    font-size: 17px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+footer div p:last-child {
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+footer nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;    /* [MOBILE] link rata tengah */
+    gap: 16px;
+}
+
+@media (min-width: 640px) {
+    footer nav {
+        justify-content: flex-start; /* [TABLET+] rata kiri */
+        gap: 24px;
+    }
+}
+
+footer nav a {
+    font-size: 14px;
+    color: var(--abu-muted);
+    transition: color 0.2s;
+}
+
+@media (hover: hover) {
+    footer nav a:hover {
+        color: #ffffff;
+    }
+}
+
+footer > .container > p {
+    font-size: 13px;
+    color: var(--abu-muted);
+}
